@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b9e5e004-8d73-461c-a3c2-c184e100eee7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.nowignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/article/ArticleActions.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/article/ArticleList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/article/ArticleMeta.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/article/ArticlePreview.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/comment/Comment.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/comment/CommentInput.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/comment/CommentList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/comment/DeleteButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/common/CustomImage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/common/CustomLink.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/common/ErrorMessage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/common/Footer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/common/Layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/common/ListErrors.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/common/LoadingSpinner.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/common/Maybe.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/common/NavLink.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/common/Navbar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/common/Pagination.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/editor/TagInput.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/home/Banner.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/home/MainView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/home/TabList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/home/Tags.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/profile/EditProfileButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/profile/FollowUserButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/profile/LoginForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/profile/ProfileTab.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/profile/RegisterForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/profile/SettingsForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/article.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/comment.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/tag.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/api/user.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/context/PageContext.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/context/PageCountContext.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/context/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hooks/useIsMounted.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hooks/useSessionStorage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/hooks/useViewport.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/types/articleType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/types/commentType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/types/tagType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/calculatePagination.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/checkLogin.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/constant.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/editorReducer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/fetcher.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/getQuery.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/handleBrokenImage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/storage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/next-env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/_app.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/_document.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/article/[pid].tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/editor/[pid].tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/editor/new.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/profile/[pid].tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/user/login.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/user/register.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/user/settings.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project-logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/android-icon-144x144.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/android-icon-192x192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/android-icon-36x36.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/android-icon-48x48.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/android-icon-72x72.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/android-icon-96x96.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apple-icon-114x114.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apple-icon-120x120.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apple-icon-144x144.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apple-icon-152x152.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apple-icon-180x180.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apple-icon-57x57.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apple-icon-60x60.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apple-icon-72x72.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apple-icon-76x76.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apple-icon-precomposed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apple-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/favicon-16x16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/favicon-32x32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/favicon-96x96.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/ms-icon-144x144.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/ms-icon-150x150.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/ms-icon-310x310.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/ms-icon-70x70.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/share-link.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2QiZ5v3XZ4ptrTyaKTyhOFgIDdu" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/tene/Development/realworld-with-next",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b9e5e004-8d73-461c-a3c2-c184e100eee7" name="Changes" comment="" />
+      <created>1685838182530</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685838182530</updated>
+      <workItem from="1685838183677" duration="713000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
