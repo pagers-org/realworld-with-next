@@ -1,4 +1,4 @@
-import marked from "marked";
+import {marked} from "marked";
 import { useRouter } from "next/router";
 import React from "react";
 import useSWR from "swr";
@@ -21,7 +21,6 @@ const ArticlePage = (initialArticle) => {
   } = useSWR(
     `${SERVER_BASE_URL}/articles/${encodeURIComponent(String(pid))}`,
     fetcher,
-    { initialData: initialArticle }
   );
 
   const { article }: Article = fetchedArticle || initialArticle;

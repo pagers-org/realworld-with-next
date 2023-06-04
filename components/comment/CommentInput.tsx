@@ -1,23 +1,26 @@
-import axios from "axios";
-import { useRouter } from "next/router";
-import React from "react";
-import useSWR, { trigger } from "swr";
+import axios from 'axios';
 
-import CustomImage from "../common/CustomImage";
-import CustomLink from "../common/CustomLink";
-import checkLogin from "../../lib/utils/checkLogin";
-import { SERVER_BASE_URL } from "../../lib/utils/constant";
-import storage from "../../lib/utils/storage";
+import React from 'react';
+
+import { useRouter } from 'next/router';
+
+import useSWR, { mutate } from 'swr';
+
+import checkLogin from '../../lib/utils/checkLogin';
+import { SERVER_BASE_URL } from '../../lib/utils/constant';
+import storage from '../../lib/utils/storage';
+import CustomImage from '../common/CustomImage';
+import CustomLink from '../common/CustomLink';
 
 const CommentInput = () => {
-  const { data: currentUser } = useSWR("user", storage);
+  const { data: currentUser } = useSWR('user', storage);
   const isLoggedIn = checkLogin(currentUser);
   const router = useRouter();
   const {
     query: { pid },
   } = router;
 
-  const [content, setContent] = React.useState("");
+  const [content, setContent] = React.useState('');
   const [isLoading, setLoading] = React.useState(false);
 
   const handleChange = React.useCallback((e) => {
@@ -36,14 +39,14 @@ const CommentInput = () => {
       }),
       {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Token ${encodeURIComponent(currentUser?.token)}`,
         },
-      }
+      },
     );
     setLoading(false);
-    setContent("");
-    trigger(`${SERVER_BASE_URL}/articles/${pid}/comments`);
+    setContent('');
+    mutate(`${SERVER_BASE_URL}/articles/${pid}/comments`);
   };
 
   if (!isLoggedIn) {

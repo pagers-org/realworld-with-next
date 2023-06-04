@@ -1,27 +1,26 @@
-import axios from "axios";
-import { useRouter } from "next/router";
-import useSWR, { trigger } from "swr";
+import axios from 'axios';
 
-import { SERVER_BASE_URL } from "../../lib/utils/constant";
-import storage from "../../lib/utils/storage";
+import { useRouter } from 'next/router';
+
+import useSWR, { mutate } from 'swr';
+
+import { SERVER_BASE_URL } from '../../lib/utils/constant';
+import storage from '../../lib/utils/storage';
 
 const DeleteButton = ({ commentId }) => {
-  const { data: currentUser } = useSWR("user", storage);
+  const { data: currentUser } = useSWR('user', storage);
   const router = useRouter();
   const {
     query: { pid },
   } = router;
 
   const handleDelete = async (commentId) => {
-    await axios.delete(
-      `${SERVER_BASE_URL}/articles/${pid}/comments/${commentId}`,
-      {
-        headers: {
-          Authorization: `Token ${currentUser?.token}`,
-        },
-      }
-    );
-    trigger(`${SERVER_BASE_URL}/articles/${pid}/comments`);
+    await axios.delete(`${SERVER_BASE_URL}/articles/${pid}/comments/${commentId}`, {
+      headers: {
+        Authorization: `Token ${currentUser?.token}`,
+      },
+    });
+    mutate(`${SERVER_BASE_URL}/articles/${pid}/comments`);
   };
 
   return (

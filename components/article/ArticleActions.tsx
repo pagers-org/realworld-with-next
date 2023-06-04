@@ -1,16 +1,16 @@
-import Router, { useRouter } from "next/router";
-import React from "react";
-import useSWR, { trigger } from "swr";
+import Router, { useRouter } from 'next/router';
 
-import CustomLink from "../common/CustomLink";
-import checkLogin from "../../lib/utils/checkLogin";
-import ArticleAPI from "../../lib/api/article";
-import { SERVER_BASE_URL } from "../../lib/utils/constant";
-import storage from "../../lib/utils/storage";
-import Maybe from "../common/Maybe";
+import useSWR, { mutate } from 'swr';
+
+import ArticleAPI from '../../lib/api/article';
+import checkLogin from '../../lib/utils/checkLogin';
+import { SERVER_BASE_URL } from '../../lib/utils/constant';
+import storage from '../../lib/utils/storage';
+import CustomLink from '../common/CustomLink';
+import Maybe from '../common/Maybe';
 
 const ArticleActions = ({ article }) => {
-  const { data: currentUser } = useSWR("user", storage);
+  const { data: currentUser } = useSWR('user', storage);
   const isLoggedIn = checkLogin(currentUser);
   const router = useRouter();
   const {
@@ -20,17 +20,16 @@ const ArticleActions = ({ article }) => {
   const handleDelete = async () => {
     if (!isLoggedIn) return;
 
-    const result = window.confirm("Do you really want to delete it?");
+    const result = window.confirm('Do you really want to delete it?');
 
     if (!result) return;
 
     await ArticleAPI.delete(pid, currentUser?.token);
-    trigger(`${SERVER_BASE_URL}/articles/${pid}`);
+    mutate(`${SERVER_BASE_URL}/articles/${pid}`);
     Router.push(`/`);
   };
 
-  const canModify =
-    isLoggedIn && currentUser?.username === article?.author?.username;
+  const canModify = isLoggedIn && currentUser?.username === article?.author?.username;
 
   return (
     <Maybe test={canModify}>
@@ -43,10 +42,7 @@ const ArticleActions = ({ article }) => {
           <i className="ion-edit" /> Edit Article
         </CustomLink>
 
-        <button
-          className="btn btn-outline-danger btn-sm"
-          onClick={handleDelete}
-        >
+        <button className="btn btn-outline-danger btn-sm" onClick={handleDelete}>
           <i className="ion-trash-a" /> Delete Article
         </button>
       </span>

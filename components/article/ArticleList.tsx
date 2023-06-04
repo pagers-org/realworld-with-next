@@ -1,27 +1,23 @@
-import { useRouter } from "next/router";
-import React from "react";
-import useSWR from "swr";
+import { useRouter } from 'next/router';
 
-import ArticlePreview from "./ArticlePreview";
-import ErrorMessage from "../common/ErrorMessage";
-import LoadingSpinner from "../common/LoadingSpinner";
-import Maybe from "../common/Maybe";
-import Pagination from "../common/Pagination";
-import { usePageState } from "../../lib/context/PageContext";
-import {
-  usePageCountState,
-  usePageCountDispatch,
-} from "../../lib/context/PageCountContext";
-import useViewport from "../../lib/hooks/useViewport";
-import { SERVER_BASE_URL, DEFAULT_LIMIT } from "../../lib/utils/constant";
-import fetcher from "../../lib/utils/fetcher";
+import useSWR from 'swr';
+
+import { usePageState } from '../../lib/context/PageContext';
+import { usePageCountDispatch, usePageCountState } from '../../lib/context/PageCountContext';
+import useViewport from '../../lib/hooks/useViewport';
+import { DEFAULT_LIMIT, SERVER_BASE_URL } from '../../lib/utils/constant';
+import fetcher from '../../lib/utils/fetcher';
+import ErrorMessage from '../common/ErrorMessage';
+import LoadingSpinner from '../common/LoadingSpinner';
+import Maybe from '../common/Maybe';
+import Pagination from '../common/Pagination';
+import ArticlePreview from './ArticlePreview';
 
 const ArticleList = () => {
   const page = usePageState();
   const pageCount = usePageCountState();
   const setPageCount = usePageCountDispatch();
-  const lastIndex =
-    pageCount > 480 ? Math.ceil(pageCount / 20) : Math.ceil(pageCount / 20) - 1;
+  const lastIndex = pageCount > 480 ? Math.ceil(pageCount / 20) : Math.ceil(pageCount / 20) - 1;
 
   const { vw } = useViewport();
   const router = useRouter();
@@ -34,24 +30,20 @@ const ArticleList = () => {
 
   switch (true) {
     case !!tag:
-      fetchURL = `${SERVER_BASE_URL}/articles${asPath}&offset=${
-        page * DEFAULT_LIMIT
-      }`;
+      fetchURL = `${SERVER_BASE_URL}/articles${asPath}&offset=${page * DEFAULT_LIMIT}`;
       break;
     case isProfilePage && !!favorite:
-      fetchURL = `${SERVER_BASE_URL}/articles?favorited=${encodeURIComponent(
-        String(pid)
-      )}&offset=${page * DEFAULT_LIMIT}`;
-      break;
-    case isProfilePage && !favorite:
-      fetchURL = `${SERVER_BASE_URL}/articles?author=${encodeURIComponent(
-        String(pid)
-      )}&offset=${page * DEFAULT_LIMIT}`;
-      break;
-    case !isProfilePage && !!follow:
-      fetchURL = `${SERVER_BASE_URL}/articles/feed?offset=${
+      fetchURL = `${SERVER_BASE_URL}/articles?favorited=${encodeURIComponent(String(pid))}&offset=${
         page * DEFAULT_LIMIT
       }`;
+      break;
+    case isProfilePage && !favorite:
+      fetchURL = `${SERVER_BASE_URL}/articles?author=${encodeURIComponent(String(pid))}&offset=${
+        page * DEFAULT_LIMIT
+      }`;
+      break;
+    case !isProfilePage && !!follow:
+      fetchURL = `${SERVER_BASE_URL}/articles/feed?offset=${page * DEFAULT_LIMIT}`;
       break;
     default:
       break;

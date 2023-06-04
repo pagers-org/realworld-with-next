@@ -19,7 +19,7 @@ const TagInput = ({ tagList, addTag, removeTag }) => {
   };
 
   const handleAddTag = () => {
-    if (!!tag) {
+    if (tag) {
       addTag(tag);
       setTag("");
     }

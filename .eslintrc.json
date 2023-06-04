@@ -1,0 +1,116 @@
+{
+  "extends": [
+    "next",
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "plugin:import/errors",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {} // this loads <rootdir>/tsconfig.json to eslint
+    }
+  },
+  "rules": {
+    "indent": "off",
+    "brace-style": "off",
+    "arrow-parens": "off",
+    "no-console": "off",
+    "no-undef": "off",
+    "max-len": "off",
+    "sort-imports": "off",
+    "no-restricted-exports": "off",
+    "no-unused-vars": "off",
+    "object-curly-newline": "off",
+    "max-params": [
+      "error",
+      3
+    ],
+    "jsx-quotes": "off",
+    "no-confusing-arrow": "off",
+    "no-nested-ternary": "off",
+    "comma-spacing": "off",
+    "function-paren-newline": "off",
+    "implicit-arrow-linebreak": "off",
+    "operator-linebreak": "off",
+    "no-underscore-dangle": "off",
+    "no-useless-constructor": "off",
+    "no-use-before-define": "off",
+    "no-param-reassign": "off",
+    "no-return-await": "off",
+    "prefer-regex-literals": "off",
+    "lines-between-class-members": "off",
+    "import/no-unresolved": "off",
+    // typescript
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    // next
+    "@next/next/no-html-link-for-pages": "off",
+    "@next/next/no-server-import-in-page": "off",
+    "@next/next/no-img-element": "off",
+    // react
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-filename-extension": 0,
+    "react/function-component-definition": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/jsx-indent": "off",
+    "react/no-danger": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    // jsx-a11y
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [ "Link" ],
+      "specialLink": [ "hrefLeft", "hrefRight" ],
+      "aspects": [ "invalidHref", "preferButton" ]
+    }],
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/no-autofocus": [ 2, {
+      "ignoreNonDOM": true
+    }],
+    "jsx-a11y/no-static-element-interactions": [
+      "error",
+      {
+        "handlers": [
+          "onMouseDown",
+          "onMouseUp",
+          "onKeyPress",
+          "onKeyDown",
+          "onKeyUp"
+        ],
+        "allowExpressionValues": true
+      }
+    ],
+    "jsx-a11y/click-events-have-key-events": "off"
+  }
+}

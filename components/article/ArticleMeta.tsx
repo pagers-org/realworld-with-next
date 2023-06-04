@@ -1,8 +1,6 @@
-import React from "react";
-
-import ArticleActions from "./ArticleActions";
-import CustomImage from "../common/CustomImage";
-import CustomLink from "../common/CustomLink";
+import CustomImage from '../common/CustomImage';
+import CustomLink from '../common/CustomLink';
+import ArticleActions from './ArticleActions';
 
 const ArticleMeta = ({ article }) => {
   if (!article) return;
@@ -24,9 +22,7 @@ const ArticleMeta = ({ article }) => {
         >
           {article.author?.username}
         </CustomLink>
-        <span className="date">
-          {new Date(article.createdAt).toDateString()}
-        </span>
+        <span className="date">{new Date(article.createdAt).toDateString()}</span>
       </div>
 
       <ArticleActions article={article} />
