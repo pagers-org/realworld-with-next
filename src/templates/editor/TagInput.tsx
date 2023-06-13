@@ -1,16 +1,25 @@
-import React from "react";
+import { type ChangeEvent, type KeyboardEvent, useCallback, useState } from 'react';
 
-const TagInput = ({ tagList, addTag, removeTag }) => {
-  const [tag, setTag] = React.useState("");
+type TagInputProps = {
+  tagList: string[];
+  addTag: (tag: string) => void;
+  removeTag: (tag: string) => void;
+};
 
-  const changeTagInput = (e) => setTag(e.target.value);
+const TagInput = ({ tagList, addTag, removeTag }: TagInputProps) => {
+  const [tag, setTag] = useState('');
 
-  const handleTagInputKeyDown = (e) => {
-    switch (e.keyCode) {
+  const changeTagInput = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => setTag(event.target.value),
+    [],
+  );
+
+  const handleTagInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    switch (event.keyCode) {
       case 13: // Enter
       case 9: // Tab
       case 188: // Comma
-        if (e.keyCode !== 9) e.preventDefault();
+        if (event.keyCode !== 9) event.preventDefault();
         handleAddTag();
         break;
       default:
@@ -19,13 +28,13 @@ const TagInput = ({ tagList, addTag, removeTag }) => {
   };
 
   const handleAddTag = () => {
-    if (tag) {
-      addTag(tag);
-      setTag("");
-    }
+    if (!tag) return;
+
+    addTag(tag);
+    setTag('');
   };
 
-  const handleRemoveTag = (tag) => {
+  const handleRemoveTag = (tag: string) => {
     removeTag(tag);
   };
 
@@ -45,10 +54,7 @@ const TagInput = ({ tagList, addTag, removeTag }) => {
         <div className="tag-list">
           {tagList.map((tag, index) => (
             <span className="tag-default tag-pill" key={index}>
-              <i
-                className="ion-close-round"
-                onClick={() => handleRemoveTag(tag)}
-              />
+              <i className="ion-close-round" onClick={() => handleRemoveTag(tag)} />
               {tag}
             </span>
           ))}

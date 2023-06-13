@@ -1,12 +1,11 @@
 import Head from 'next/head';
+import { NavLink } from '@/components';
+import { RegisterForm } from '@/templates/profile';
 
-import CustomLink from '../../components/common/CustomLink';
-import RegisterForm from '../../components/profile/RegisterForm';
-
-const Register = () => (
+const RegisterPage = () => (
   <>
     <Head>
-      <title>REGISTER | NEXT REALWORLD</title>
+      <title>REGISTER | NEXT REAL-WORLD</title>
       <meta name="description" content="Please register before login" />
     </Head>
     <div className="auth-page">
@@ -15,11 +14,8 @@ const Register = () => (
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Sign Up</h1>
             <p className="text-xs-center">
-              <CustomLink href="/user/login" as="/user/login">
-                Have an account?
-              </CustomLink>
+              <NavLink href="/user/login">Have an account?</NavLink>
             </p>
-
             <RegisterForm />
           </div>
         </div>
@@ -28,4 +24,4 @@ const Register = () => (
   </>
 );
 
-export default Register;
+export default RegisterPage;
