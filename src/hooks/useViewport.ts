@@ -1,10 +1,10 @@
-import React from "react";
+import { useEffect, useState } from 'react';
 
 const useViewport = () => {
-  const [vw, setVW] = React.useState(0);
-  const [vh, setVH] = React.useState(0);
+  const [vw, setVW] = useState(0);
+  const [vh, setVH] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const setSizes = () => {
       if (window.innerWidth !== vw) {
         setVW(window.innerWidth);
@@ -16,8 +16,8 @@ const useViewport = () => {
     };
 
     setSizes();
-    window.addEventListener("resize", setSizes);
-    return () => window.removeEventListener("resize", setSizes);
+    window.addEventListener('resize', setSizes);
+    return () => window.removeEventListener('resize', setSizes);
   }, [vh, vw]);
 
   return { vw, vh };
