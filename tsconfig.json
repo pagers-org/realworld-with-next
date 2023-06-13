@@ -16,6 +16,7 @@
     //
     "noUnusedLocals": false,
     "noUnusedParameters": false,
+    "noImplicitAny": false,
     //
     "target": "es5",
     "outDir": "out",
@@ -35,6 +36,7 @@
     "incremental": true,
     //
     "baseUrl": ".",
+    "typeRoots": ["@types/*"],
     "paths": {
       "@/*": [
         "src/*"
@@ -46,6 +48,7 @@
   ],
   "include": [
     "next-env.d.ts",
+    "**/*.d.ts",
     "**/*.ts",
     "**/*.tsx"
   ]
