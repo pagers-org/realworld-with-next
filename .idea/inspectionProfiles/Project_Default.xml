@@ -6,5 +6,6 @@
       <option name="CHECK_FOR_NOT_ASCII_IDENTIFIER_NAME" value="false" />
       <option name="CHECK_FOR_DIFFERENT_LANGUAGES_IN_IDENTIFIER_NAME" value="false" />
     </inspection_tool>
+    <inspection_tool class="TsLint" enabled="true" level="WARNING" enabled_by_default="true" />
   </profile>
 </component>
