@@ -1,31 +1,25 @@
 import { type MouseEvent, useCallback } from 'react';
+import { getPageInfo, getRange } from './Pagination.utils';
 
-import { mutate } from 'swr';
-
-import { usePageDispatch, usePageState } from '../../lib/context/PageContext';
-import { getPageInfo, getRange } from '../../lib/utils/calculatePagination';
-import Maybe from './Maybe';
-
-interface PaginationProps {
+type PaginationProps = {
+  page: number;
+  onChangePage: (page: number) => void;
   total: number;
   limit: number;
   pageCount: number;
   currentPage: number;
   lastIndex: number;
-  fetchURL: string;
-}
+};
 
 const Pagination = ({
+  page,
+  onChangePage,
   total,
   limit,
   pageCount,
   currentPage,
   lastIndex,
-  fetchURL,
 }: PaginationProps) => {
-  const page = usePageState();
-  const setPage = usePageDispatch();
-
   const { firstPage, lastPage, hasPreviousPage, hasNextPage } = getPageInfo({
     limit,
     pageCount,
@@ -34,65 +28,62 @@ const Pagination = ({
   });
   const pages = total > 0 ? getRange(firstPage, lastPage) : [];
 
-  const handleClick = useCallback((e: MouseEvent<HTMLLIElement, MouseEvent>, index: number) => {
+  const handleClick = useCallback(
+    (index: number) => (event: MouseEvent<HTMLLIElement>) => {
+      event.preventDefault();
+      onChangePage(index);
+    },
+    [],
+  );
+
+  const handleFirstClick = useCallback((e: MouseEvent<HTMLLIElement>) => {
     e.preventDefault();
-    setPage(index);
-    mutate(fetchURL);
+    onChangePage(0);
   }, []);
 
-  const handleFirstClick = useCallback((e: MouseEvent<HTMLLIElement, MouseEvent>) => {
+  const handlePrevClick = useCallback((e: MouseEvent<HTMLLIElement>) => {
     e.preventDefault();
-    setPage(0);
-    mutate(fetchURL);
+    onChangePage(page - 1);
   }, []);
 
-  const handlePrevClick = useCallback((e: MouseEvent<HTMLLIElement, MouseEvent>) => {
-    e.preventDefault();
-    setPage(page - 1);
-    mutate(fetchURL);
+  const handleNextClick = useCallback((event: MouseEvent<HTMLLIElement>) => {
+    event.preventDefault();
+    onChangePage(page + 1);
   }, []);
 
-  const handleNextClick = useCallback((e: MouseEvent<HTMLLIElement, MouseEvent>) => {
-    e.preventDefault();
-    setPage(page + 1);
-    mutate(fetchURL);
-  }, []);
-
-  const handleLastClick = useCallback((e: MouseEvent<HTMLLIElement, MouseEvent>) => {
-    e.preventDefault();
-    setPage(lastIndex);
-    mutate(fetchURL);
+  const handleLastClick = useCallback((event: MouseEvent<HTMLLIElement>) => {
+    event.preventDefault();
+    onChangePage(lastIndex);
   }, []);
 
   return (
     <nav>
-      <ul className="pagination">
+      <ul className="pagination cursor-pointer">
         <li className="page-item" onClick={handleFirstClick}>
           <a className="page-link">{`<<`}</a>
         </li>
-        <Maybe test={hasPreviousPage}>
+        {hasPreviousPage && (
           <li className="page-item" onClick={handlePrevClick}>
             <a className="page-link">{`<`}</a>
           </li>
-        </Maybe>
-
+        )}
         {pages.map((page) => {
           const isCurrent = !currentPage ? page === 0 : page === currentPage;
           return (
             <li
               key={page.toString()}
               className={isCurrent ? 'page-item active' : 'page-item'}
-              onClick={(e) => handleClick(e, page)}
+              onClick={handleClick(page)}
             >
               <a className="page-link">{page + 1}</a>
             </li>
           );
         })}
-        <Maybe test={hasNextPage}>
+        {hasNextPage && (
           <li className="page-item" onClick={handleNextClick}>
             <a className="page-link">{`>`}</a>
           </li>
-        </Maybe>
+        )}
         <li className="page-item" onClick={handleLastClick}>
           <a className="page-link">{`>>`}</a>
         </li>

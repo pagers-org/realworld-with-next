@@ -1,15 +1,15 @@
-import React from "react";
+import { memo } from 'react';
 
-interface ErrorMessageProps {
+type ErrorMessageProps = {
   message: string;
-}
+};
 
 const ErrorMessage = ({ message }: ErrorMessageProps) => (
-  <React.Fragment>
+  <>
     <div className="error-container">
       <div className="error-content">{message}</div>
     </div>
-    <style jsx>
+    <style>
       {`
         .error-container {
           display: flex;
@@ -26,7 +26,7 @@ const ErrorMessage = ({ message }: ErrorMessageProps) => (
         }
       `}
     </style>
-  </React.Fragment>
+  </>
 );
 
-export default ErrorMessage;
+export default memo(ErrorMessage);
