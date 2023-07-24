@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useFavoriteArticle, useUnFavoriteArticle } from '@/api/article';
 import { CustomImage, NavLink } from '@/components';
 import useAppRouter from '@/hooks/useAppRouter';
@@ -44,23 +44,16 @@ const ArticlePreview = ({ article }: ArticlePreviewProps) => {
     }
   };
 
-  const handleClickArticle = useCallback(
-    (slug: string) => () => router.push(`/article/${slug}`, undefined, { shallow: true }),
-    [],
-  );
+  const handleClickArticle = (slug: string) => () =>
+    router.push(`/article/${slug}`, undefined, { shallow: true });
 
-  const handleClickTag = useCallback(
-    (tag: string) => () => router.push(`/?tag=${tag}`, undefined, { shallow: true }),
-    [],
-  );
+  const handleClickTag = (tag: string) => () =>
+    router.push(`/?tag=${tag}`, undefined, { shallow: true });
 
-  const handleMouseOverAndLeave = useCallback(
-    (isHover: boolean, index: number) => () => {
-      setHover(isHover);
-      setCurrentIndex(index);
-    },
-    [],
-  );
+  const handleMouseOverAndLeave = (isHover: boolean, index: number) => () => {
+    setHover(isHover);
+    setCurrentIndex(index);
+  };
 
   if (!article) return null;
 

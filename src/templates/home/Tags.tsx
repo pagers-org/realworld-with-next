@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useGetTags } from '@/api/tag';
 import { ErrorMessage, LoadingSpinner } from '@/components';
 import useAppRouter from '@/hooks/useAppRouter';
@@ -7,7 +6,7 @@ const Tags = () => {
   const router = useAppRouter();
   const { data, error } = useGetTags();
 
-  const handleRouteTag = useCallback((tag: string) => () => router.push(`/?tag=${tag}`), []);
+  const handleRouteTag = (tag: string) => () => router.push(`/?tag=${tag}`);
 
   if (error) return <ErrorMessage message="Cannot load popular tags..." />;
   if (!data) return <LoadingSpinner />;

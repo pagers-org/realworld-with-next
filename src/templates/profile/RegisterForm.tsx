@@ -1,4 +1,4 @@
-import { type FormEvent, useCallback, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import UserAPI from '@/api/core/user';
 import { ErrorList } from '@/components';
 import useAppRouter from '@/hooks/useAppRouter';
@@ -9,7 +9,7 @@ const RegisterForm = () => {
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState<RWClientError['errors']['body']>([]);
 
-  const handleSubmit = useCallback(async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
 
@@ -27,7 +27,7 @@ const RegisterForm = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
 
   return (
     <>

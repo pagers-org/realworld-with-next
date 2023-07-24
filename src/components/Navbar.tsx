@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import useAppRouter from '@/hooks/useAppRouter';
 import { useUser } from '@/stores';
 import NavLink from './NavLink';
@@ -7,7 +6,7 @@ const Navbar = () => {
   const router = useAppRouter();
   const { token, username } = useUser();
 
-  const handleRouteMain = useCallback(() => router.push('/', undefined, { shallow: true }), []);
+  const handleRouteMain = () => router.push('/', undefined, { shallow: true });
 
   return (
     <nav className="navbar navbar-light">

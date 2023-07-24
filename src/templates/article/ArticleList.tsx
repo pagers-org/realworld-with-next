@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react';
 import { usePartialArticles } from '@/api/article';
 import { ErrorMessage, LoadingSpinner, Pagination } from '@/components';
+import useAppRouter from '@/hooks/useAppRouter';
 import useViewport from '@/hooks/useViewport';
 import { useUser } from '@/stores';
 import ArticlePreview from './ArticlePreview';
@@ -14,14 +14,14 @@ type ArticleListProps = {
 };
 
 const ArticleList = (props: ArticleListProps) => {
+  const { push, query } = useAppRouter();
+  const page = Number(query.page ?? 0);
   const { token } = useUser();
-  const [page, setPage] = useState(0);
   const { data, error } = usePartialArticles({ page, token, ...props });
   const { vw } = useViewport();
 
-  const onChangePage = useCallback((targetPage: number) => {
-    setPage(targetPage);
-  }, []);
+  const onChangePage = (targetPage: number) =>
+    push(`/?page=${targetPage}`, undefined, { shallow: true });
 
   if (error) {
     return (

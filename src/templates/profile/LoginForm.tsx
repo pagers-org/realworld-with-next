@@ -1,4 +1,4 @@
-import { type FormEvent, useCallback, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import UserAPI from '@/api/core/user';
 import { ErrorList } from '@/components';
 import useAppRouter from '@/hooks/useAppRouter';
@@ -11,7 +11,7 @@ const LoginForm = () => {
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState<RWClientError['errors']['body']>([]);
 
-  const handleSubmit = useCallback(async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
 
@@ -22,7 +22,7 @@ const LoginForm = () => {
     try {
       const { user } = await UserAPI.login({ email, password });
 
-      await router.push('/', undefined, { shallow: true }).then(() => {
+      router.push('/', undefined, { shallow: true }).then(() => {
         setUser(user);
         UserAPI.setToken({ user });
       });
@@ -32,7 +32,7 @@ const LoginForm = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
 
   return (
     <>

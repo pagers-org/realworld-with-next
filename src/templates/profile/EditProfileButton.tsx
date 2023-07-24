@@ -1,13 +1,10 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import useAppRouter from '@/hooks/useAppRouter';
 
 const EditProfileButton = () => {
   const router = useAppRouter();
 
-  const handleSettingsClick = useCallback(
-    () => router.push('/user/settings', undefined, { shallow: true }),
-    [],
-  );
+  const handleSettingsClick = () => router.push('/user/settings', undefined, { shallow: true });
 
   return (
     <div onClick={handleSettingsClick} className="btn btn-sm btn-outline-secondary action-btn">

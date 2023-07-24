@@ -53,7 +53,9 @@ const useAppRouter = () => {
     as?: Url,
     options: TransitionOptions = { shallow: true },
   ): Promise<void | boolean> => {
-    return isApp ? sendRouterEvent({ path: url, data: {} }) : router.replace(url, as, options);
+    return isApp
+      ? sendRouterEvent({ path: `${BASE_URL}${url}`, data: {} })
+      : router.replace(url, as, options);
   };
 
   const reload = async (): Promise<void> =>
