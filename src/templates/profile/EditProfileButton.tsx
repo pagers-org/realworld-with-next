@@ -1,8 +1,8 @@
 import { memo, useCallback } from 'react';
-import { useRouter } from 'next/router';
+import useAppRouter from '@/hooks/useAppRouter';
 
 const EditProfileButton = () => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const handleSettingsClick = useCallback(
     () => router.push('/user/settings', undefined, { shallow: true }),

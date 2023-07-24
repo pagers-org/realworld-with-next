@@ -1,13 +1,13 @@
 import { type FormEvent, useCallback, useState } from 'react';
-import { useRouter } from 'next/router';
 import UserAPI from '@/api/core/user';
 import { ErrorList } from '@/components';
+import useAppRouter from '@/hooks/useAppRouter';
 import { useStore } from '@/stores';
 import type { RWClientError } from 'types-client';
 
 const LoginForm = () => {
+  const router = useAppRouter();
   const setUser = useStore((state) => state.setUser);
-  const router = useRouter();
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState<RWClientError['errors']['body']>([]);
 

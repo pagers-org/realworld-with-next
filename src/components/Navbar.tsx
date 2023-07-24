@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
-import { useRouter } from 'next/router';
+import useAppRouter from '@/hooks/useAppRouter';
 import { useUser } from '@/stores';
 import NavLink from './NavLink';
 
 const Navbar = () => {
+  const router = useAppRouter();
   const { token, username } = useUser();
-  const router = useRouter();
 
   const handleRouteMain = useCallback(() => router.push('/', undefined, { shallow: true }), []);
 

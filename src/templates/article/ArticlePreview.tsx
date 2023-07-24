@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import { useRouter } from 'next/router';
 import { useFavoriteArticle, useUnFavoriteArticle } from '@/api/article';
 import { CustomImage, NavLink } from '@/components';
+import useAppRouter from '@/hooks/useAppRouter';
 import { useUser } from '@/stores';
 import type { Article } from 'types-domain';
 
@@ -13,10 +13,10 @@ type ArticlePreviewProps = {
 };
 
 const ArticlePreview = ({ article }: ArticlePreviewProps) => {
+  const router = useAppRouter();
   const { token } = useUser();
   const { mutate: favoriteArticle } = useFavoriteArticle(token);
   const { mutate: unFavoriteArticle } = useUnFavoriteArticle(token);
-  const router = useRouter();
 
   const [preview, setPreview] = useState(article);
   const [hover, setHover] = useState(false);

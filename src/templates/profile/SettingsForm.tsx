@@ -1,7 +1,7 @@
 import { type ChangeEvent, type FormEvent, useState } from 'react';
-import { useRouter } from 'next/router';
 import UserAPI from '@/api/core/user';
 import { ErrorList } from '@/components';
+import useAppRouter from '@/hooks/useAppRouter';
 import { useUser } from '@/stores';
 import type { RWClientError } from 'types-client';
 import type { User } from 'types-domain';
@@ -11,8 +11,8 @@ type UserInfo = User & {
 };
 
 const SettingsForm = () => {
+  const router = useAppRouter();
   const currentUser = useUser();
-  const router = useRouter();
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState<RWClientError['errors']['body']>([]);
   const [userInfo, setUserInfo] = useState<UserInfo>({
@@ -43,7 +43,7 @@ const SettingsForm = () => {
       setLoading(false);
 
       if (!user) return;
-      await router.push(`/`, undefined, { shallow: true }).then(() => UserAPI.setToken({ user }));
+      router.push(`/`, undefined, { shallow: true }).then(() => UserAPI.setToken({ user }));
     } catch (error) {
       const $error = error as RWClientError;
       setErrors($error.errors.body);

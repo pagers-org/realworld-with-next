@@ -1,9 +1,9 @@
 import { type MouseEvent, useState } from 'react';
-import { useRouter } from 'next/router';
 import { dehydrate } from '@tanstack/react-query';
 import { usePreFetchGetArticle, useUpdateArticle } from '@/api/article';
 import { ErrorList } from '@/components';
 import { withAuth } from '@/hoc';
+import useAppRouter from '@/hooks/useAppRouter';
 import useEditor from '@/hooks/useEditor';
 import { useUser } from '@/stores';
 import { TagInput } from '@/templates/editor';
@@ -14,9 +14,9 @@ type UpdateArticleEditorProps = {
 };
 
 const UpdateArticleEditor = ({ slug }: UpdateArticleEditorProps) => {
+  const router = useAppRouter();
   const { token } = useUser();
   const { mutate: updateArticle } = useUpdateArticle();
-  const router = useRouter();
 
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState<RWClientError['errors']['body']>([]);

@@ -1,13 +1,13 @@
 import { type ChangeEvent, type FormEvent, useCallback, useState } from 'react';
-import { useRouter } from 'next/router';
 import { useAddCommentsToArticle } from '@/api/comment';
 import { CustomImage, NavLink } from '@/components';
+import useAppRouter from '@/hooks/useAppRouter';
 import { useUser } from '@/stores';
 
 const CommentInput = () => {
+  const router = useAppRouter();
   const { token, image } = useUser();
   const { mutate: addComment } = useAddCommentsToArticle();
-  const router = useRouter();
   const slug = String(router.query.pid);
 
   const [content, setContent] = useState('');

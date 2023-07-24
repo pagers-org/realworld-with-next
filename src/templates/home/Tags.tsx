@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
-import { useRouter } from 'next/router';
 import { useGetTags } from '@/api/tag';
 import { ErrorMessage, LoadingSpinner } from '@/components';
+import useAppRouter from '@/hooks/useAppRouter';
 
 const Tags = () => {
-  const router = useRouter();
+  const router = useAppRouter();
   const { data, error } = useGetTags();
 
   const handleRouteTag = useCallback((tag: string) => () => router.push(`/?tag=${tag}`), []);

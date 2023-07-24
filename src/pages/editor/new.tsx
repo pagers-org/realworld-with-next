@@ -1,17 +1,17 @@
 import { type FormEvent, useState } from 'react';
-import { useRouter } from 'next/router';
 import { useCreateArticle } from '@/api/article';
 import { ErrorList } from '@/components';
 import { withAuth } from '@/hoc';
+import useAppRouter from '@/hooks/useAppRouter';
 import useEditor from '@/hooks/useEditor';
 import { useUser } from '@/stores';
 import { TagInput } from '@/templates/editor';
 import type { RWClientError } from 'types-client';
 
 const PublishArticleEditor = () => {
+  const router = useAppRouter();
   const { token } = useUser();
   const { mutate: createArticle } = useCreateArticle();
-  const router = useRouter();
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState<RWClientError['errors']['body']>([]);
   const { editorState, handleTitle, handleDescription, handleBody, addTag, removeTag } =
