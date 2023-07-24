@@ -1,6 +1,6 @@
 import { type PropsWithChildren, useMemo } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useAppRouter from '@/hooks/useAppRouter';
 
 type NavLinkProps = PropsWithChildren<{
   href: string;
@@ -8,7 +8,7 @@ type NavLinkProps = PropsWithChildren<{
 }>;
 
 const NavLink = ({ className, href, children }: NavLinkProps) => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const $className = useMemo(
     () => className || `nav-link${router.asPath === href ? ` active` : ''}`,
@@ -16,7 +16,14 @@ const NavLink = ({ className, href, children }: NavLinkProps) => {
   );
 
   return (
-    <Link className={$className} href={href}>
+    <Link
+      className={$className}
+      href={href}
+      onClick={(event) => {
+        event.preventDefault();
+        router.push(href);
+      }}
+    >
       {children}
     </Link>
   );
