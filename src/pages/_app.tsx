@@ -10,6 +10,7 @@ import {
 import { Footer, Navbar } from '@/components';
 import { 리액트_쿼리_기본값 } from '@/constants';
 import { GlobalStoreProvider } from '@/contexts';
+import useDevice from '@/hooks/useDevice';
 import '@/styles/styles.css';
 import type { GlobalStoreInterface } from 'types-store';
 
@@ -27,6 +28,7 @@ if (typeof window !== 'undefined') {
 }
 
 const RealWorldApp = ({ Component, pageProps }: AppProps<AppGlobalProps>) => {
+  const { isWebView } = useDevice();
   const [queryClient] = React.useState(() => new QueryClient(리액트_쿼리_기본값));
 
   return (
@@ -40,7 +42,7 @@ const RealWorldApp = ({ Component, pageProps }: AppProps<AppGlobalProps>) => {
       <GlobalStoreProvider {...pageProps.initialZustandState}>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            <Navbar />
+            {isWebView ? null : <Navbar />}
             <Component {...pageProps} />
             <Footer />
           </Hydrate>
