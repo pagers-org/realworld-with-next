@@ -17,6 +17,10 @@ img.lazyload:not([src]) {
 }
 
 @media screen and (max-width: 767px) {
+    .home-page > .container.page {
+        margin-top: 0;
+    }
+
     .col-md-9 {
         flex: 0 0 100%;
         max-width: 100%;
