@@ -1,5 +1,5 @@
-import { useLayoutEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import useDevice from '@/hooks/useDevice';
 import type { ParsedUrlQuery } from 'types-literal';
 
 interface Url {
@@ -22,6 +22,8 @@ interface TransitionOptions {
   locale?: string | false;
   scroll?: boolean;
   unstable_skipClientCache?: boolean;
+  appScreenName?: string;
+  appSendData?: Record<string, unknown>;
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_WEB_DOAMIN!;
@@ -31,20 +33,20 @@ const sendRouterEvent = async (params: Record<string, string | Record<string, un
 };
 
 const useAppRouter = () => {
+  const { isWebView } = useDevice();
   const router = useRouter();
-  const [isApp, setIsApp] = useState(false);
-
-  useLayoutEffect(() => {
-    setIsApp(typeof window !== 'undefined' && window.ReactNativeWebView);
-  }, []);
 
   const push = async (
     url: string,
     as?: Url,
     options: TransitionOptions = { shallow: true },
   ): Promise<void | boolean> => {
-    return isApp
-      ? sendRouterEvent({ path: `${BASE_URL}${url}`, data: {} })
+    return isWebView
+      ? sendRouterEvent({
+          path: `${BASE_URL}${url}`,
+          screenName: options.appScreenName ?? '',
+          data: { ...(options.appSendData ?? {}) },
+        })
       : router.push(url, as, options);
   };
 
@@ -53,19 +55,22 @@ const useAppRouter = () => {
     as?: Url,
     options: TransitionOptions = { shallow: true },
   ): Promise<void | boolean> => {
-    return isApp
-      ? sendRouterEvent({ path: `${BASE_URL}${url}`, data: {} })
+    return isWebView
+      ? sendRouterEvent({
+          path: `${BASE_URL}${url}`,
+          screenName: options.appScreenName ?? '',
+          data: { ...(options.appSendData ?? {}) },
+        })
       : router.replace(url, as, options);
   };
 
   const reload = async (): Promise<void> =>
-    isApp ? sendRouterEvent({ path: router.pathname, data: {} }) : router.reload();
+    isWebView ? sendRouterEvent({ type: 'ROUTER_REFRESH' }) : router.reload();
 
   const back = async (): Promise<void> =>
-    isApp ? sendRouterEvent({ path: 'back', data: {} }) : router.back();
+    isWebView ? sendRouterEvent({ type: 'ROUTER_BACK' }) : router.back();
 
   return {
-    isApp,
     push,
     replace,
     reload,
