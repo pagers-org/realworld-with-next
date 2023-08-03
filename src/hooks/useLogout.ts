@@ -1,15 +1,19 @@
 import UserAPI from '@/api/core/user';
 import useAppRouter from '@/hooks/useAppRouter';
-import { useStore } from '@/stores';
+import useDevice from '@/hooks/useDevice';
 
 const useLogout = () => {
-  const router = useAppRouter();
-  const resetUser = useStore((state) => state.reset);
+  const { isWebView } = useDevice();
+  const { replace, reload } = useAppRouter();
 
   return () => {
-    router.push('/', undefined, { shallow: true }).then(() => {
-      resetUser();
-      void UserAPI.removeToken();
+    UserAPI.removeToken().then(() => {
+      if (isWebView) {
+        void reload();
+        return;
+      }
+
+      void replace('/', undefined, { shallow: true });
     });
   };
 };
