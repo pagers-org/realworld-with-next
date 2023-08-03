@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type WindowSize = {
   width?: number;
@@ -8,14 +8,18 @@ type WindowSize = {
 const MAX_MOBILE_SIZE = 992;
 
 const useWebview = () => {
-  const [isWebView, setIsWebView] = useState(false);
+  const isWebViewRef = useRef(false);
 
   useEffect(() => {
-    setIsWebView(typeof window !== 'undefined' && Boolean(window.ReactNativeWebView));
+    if (isWebViewRef.current) return;
+
+    if (typeof window !== 'undefined' && window.ReactNativeWebView) {
+      isWebViewRef.current = true;
+    }
   }, []);
 
   return {
-    isWebView,
+    isWebView: isWebViewRef.current,
   };
 };
 
