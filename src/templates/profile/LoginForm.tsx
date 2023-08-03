@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { type FormEvent, useState } from 'react';
 import UserAPI from '@/api/core/user';
 import { ErrorList } from '@/components';
@@ -6,7 +7,7 @@ import { useStore } from '@/stores';
 import type { RWClientError } from 'types-client';
 
 const LoginForm = () => {
-  const router = useAppRouter();
+  const { query, replace } = useAppRouter();
   const setUser = useStore((state) => state.setUser);
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState<RWClientError['errors']['body']>([]);
@@ -21,12 +22,16 @@ const LoginForm = () => {
 
     try {
       const { user } = await UserAPI.login({ email, password });
-
-      router.push('/', undefined, { shallow: true }).then(() => {
-        setUser(user);
-        UserAPI.setToken({ user });
+      setUser(user);
+      UserAPI.setToken({ user }).then(() => {
+        const redirectUrl = decodeURIComponent((query.redirectUrl as string) ?? '/');
+        void replace(redirectUrl);
       });
     } catch (error) {
+      if (error instanceof AxiosError) {
+        setErrors([error.message]);
+        return;
+      }
       const $error = error as RWClientError;
       setErrors($error.errors.body);
     } finally {

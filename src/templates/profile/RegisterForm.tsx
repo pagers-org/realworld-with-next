@@ -5,7 +5,7 @@ import useAppRouter from '@/hooks/useAppRouter';
 import type { RWClientError } from 'types-client';
 
 const RegisterForm = () => {
-  const router = useAppRouter();
+  const { replace } = useAppRouter();
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState<RWClientError['errors']['body']>([]);
 
@@ -20,7 +20,9 @@ const RegisterForm = () => {
 
     try {
       const { user } = await UserAPI.register({ username, email, password });
-      await router.push('/', undefined, { shallow: true }).then(() => UserAPI.setToken({ user }));
+      UserAPI.setToken({ user }).then(() => {
+        void replace('/');
+      });
     } catch (error) {
       const $error = error as RWClientError;
       setErrors($error.errors.body);

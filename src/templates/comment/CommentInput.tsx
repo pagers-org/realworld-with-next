@@ -23,7 +23,7 @@ const CommentInput = () => {
     if (!token) return;
 
     setLoading(true);
-    await addComment({ slug, body: content, token });
+    addComment({ slug, body: content, token });
     setLoading(false);
     setContent('');
   };
@@ -31,9 +31,13 @@ const CommentInput = () => {
   if (!token) {
     return (
       <p style={{ textAlign: 'center' }}>
-        <NavLink href="/user/login">Sign in</NavLink>
+        <NavLink href="/user/login">
+          <strong style={{ color: '#797bff', cursor: 'pointer' }}>Sign in</strong>
+        </NavLink>
         &nbsp;or&nbsp;
-        <NavLink href="/user/register">sign up</NavLink>
+        <NavLink href="/user/register">
+          <strong style={{ color: '#907777', cursor: 'pointer' }}>Sign up</strong>
+        </NavLink>
         &nbsp;to add comments on this article.
       </p>
     );

@@ -1,21 +1,29 @@
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 import { useCreateArticle } from '@/api/article';
 import { ErrorList } from '@/components';
 import { withAuth } from '@/hoc';
 import useAppRouter from '@/hooks/useAppRouter';
+import useDevice from '@/hooks/useDevice';
 import useEditor from '@/hooks/useEditor';
 import { useUser } from '@/stores';
 import { TagInput } from '@/templates/editor';
 import type { RWClientError } from 'types-client';
 
 const PublishArticleEditor = () => {
-  const router = useAppRouter();
+  const { isWebView } = useDevice();
+  const { push, replace } = useAppRouter();
   const { token } = useUser();
   const { mutate: createArticle } = useCreateArticle();
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState<RWClientError['errors']['body']>([]);
   const { editorState, handleTitle, handleDescription, handleBody, addTag, removeTag } =
     useEditor();
+
+  useEffect(() => {
+    if (token) return;
+
+    void replace(`/user/login?redirectUrl=${encodeURIComponent('/editor/new')}`);
+  }, [token]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,9 +32,13 @@ const PublishArticleEditor = () => {
     try {
       setLoading(true);
 
-      await createArticle({ article: editorState, token });
+      createArticle({ article: editorState, token });
 
-      await router.push('/', undefined, { shallow: true });
+      if (isWebView) {
+        return;
+      }
+
+      void push('/', undefined, { shallow: true });
     } catch (error) {
       const $error = error as RWClientError;
       setErrors($error.errors.body);

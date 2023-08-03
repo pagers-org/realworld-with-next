@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type MouseEvent, useState } from 'react';
 import { useFavoriteArticle, useUnFavoriteArticle } from '@/api/article';
 import { CustomImage, NavLink } from '@/components';
 import useAppRouter from '@/hooks/useAppRouter';
@@ -13,7 +13,7 @@ type ArticlePreviewProps = {
 };
 
 const ArticlePreview = ({ article }: ArticlePreviewProps) => {
-  const router = useAppRouter();
+  const { push } = useAppRouter();
   const { token } = useUser();
   const { mutate: favoriteArticle } = useFavoriteArticle(token);
   const { mutate: unFavoriteArticle } = useUnFavoriteArticle(token);
@@ -23,7 +23,10 @@ const ArticlePreview = ({ article }: ArticlePreviewProps) => {
   const [currentIndex, setCurrentIndex] = useState(-1);
 
   const handleClickFavorite = (slug: string) => async () => {
-    if (!token) return router.push(`/user/login`, undefined, { shallow: true });
+    if (!token)
+      return push(`/user/login?redirectUrl=${encodeURIComponent(`/article/${slug}`)}`, undefined, {
+        shallow: true,
+      });
 
     setPreview((prev) => ({
       ...prev,
@@ -33,8 +36,7 @@ const ArticlePreview = ({ article }: ArticlePreviewProps) => {
 
     try {
       const callAPI = preview.favorited ? unFavoriteArticle : favoriteArticle;
-
-      await callAPI({ slug });
+      callAPI({ slug });
     } catch (error) {
       setPreview((prev) => ({
         ...prev,
@@ -45,10 +47,12 @@ const ArticlePreview = ({ article }: ArticlePreviewProps) => {
   };
 
   const handleClickArticle = (slug: string) => () =>
-    router.push(`/article/${slug}`, undefined, { shallow: true });
+    push(`/article/${slug}`, undefined, { shallow: false, appScreenName: 'Detail' });
 
-  const handleClickTag = (tag: string) => () =>
-    router.push(`/?tag=${tag}`, undefined, { shallow: true });
+  const handleClickTag = (tag: string) => (event: MouseEvent<HTMLLIElement>) => {
+    event.stopPropagation();
+    void push(`/?tag=${tag}`, undefined, { shallow: false });
+  };
 
   const handleMouseOverAndLeave = (isHover: boolean, index: number) => () => {
     setHover(isHover);
@@ -91,11 +95,11 @@ const ArticlePreview = ({ article }: ArticlePreviewProps) => {
         <span>Read more...</span>
         <ul className="tag-list" style={{ maxWidth: '100%', display: 'flex' }}>
           {preview.tagList.map((tag, index) => (
-            <div onClick={handleClickTag(tag)} key={tag}>
+            <div key={tag}>
               {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
               <li
                 className="tag-default tag-pill tag-outline"
-                onClick={(e) => e.stopPropagation()}
+                onClick={handleClickTag(tag)}
                 onMouseOver={handleMouseOverAndLeave(true, index)}
                 onMouseLeave={handleMouseOverAndLeave(false, -1)}
                 style={{ borderColor: hover && currentIndex === index ? '#5cb85c' : 'initial' }}

@@ -1,4 +1,4 @@
-import { memo, type MouseEvent, type PropsWithChildren, useMemo } from 'react';
+import { type MouseEvent, type PropsWithChildren } from 'react';
 import useAppRouter from '@/hooks/useAppRouter';
 
 type NavLinkProps = PropsWithChildren<{
@@ -9,14 +9,11 @@ type NavLinkProps = PropsWithChildren<{
 const NavLink = ({ className, href, children }: NavLinkProps) => {
   const { push, asPath } = useAppRouter();
 
-  const $className = useMemo(
-    () => className || `nav-link${asPath === href ? ` active` : ''}`,
-    [className, asPath, href],
-  );
-
+  const $className = className || `nav-link${asPath === href ? ` active` : ''}`;
   const handleRouteClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    void push(href, undefined, { shallow: true });
+    event.stopPropagation();
+
+    void push(href, undefined, { shallow: false });
   };
 
   return (
@@ -26,4 +23,4 @@ const NavLink = ({ className, href, children }: NavLinkProps) => {
   );
 };
 
-export default memo(NavLink);
+export default NavLink;

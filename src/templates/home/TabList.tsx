@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { NavLink } from '@/components';
 import { useUser } from '@/stores';
 
@@ -48,4 +47,4 @@ const TabList = ({ tag }: TabListProps) => {
   );
 };
 
-export default memo(TabList);
+export default TabList;

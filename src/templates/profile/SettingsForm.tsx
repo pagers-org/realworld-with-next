@@ -1,7 +1,8 @@
-import { type ChangeEvent, type FormEvent, useState } from 'react';
+import { type ChangeEvent, type FormEvent, useEffect, useState } from 'react';
 import UserAPI from '@/api/core/user';
 import { ErrorList } from '@/components';
 import useAppRouter from '@/hooks/useAppRouter';
+import useDevice from '@/hooks/useDevice';
 import { useUser } from '@/stores';
 import type { RWClientError } from 'types-client';
 import type { User } from 'types-domain';
@@ -11,7 +12,8 @@ type UserInfo = User & {
 };
 
 const SettingsForm = () => {
-  const router = useAppRouter();
+  const { isWebView } = useDevice();
+  const { push, replace } = useAppRouter();
   const currentUser = useUser();
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState<RWClientError['errors']['body']>([]);
@@ -19,6 +21,12 @@ const SettingsForm = () => {
     password: '',
     ...currentUser,
   });
+
+  useEffect(() => {
+    if (userInfo.token) return;
+
+    void replace(`/user/login?redirectUrl=${encodeURIComponent('/user/settings')}`);
+  }, []);
 
   const updateState =
     (field: keyof UserInfo) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -40,13 +48,15 @@ const SettingsForm = () => {
         currentUser.token,
       );
 
-      setLoading(false);
-
       if (!user) return;
-      router.push(`/`, undefined, { shallow: true }).then(() => UserAPI.setToken({ user }));
+      push(isWebView ? '/user/settings' : '/', undefined, { shallow: true }).then(() =>
+        UserAPI.setToken({ user }),
+      );
     } catch (error) {
       const $error = error as RWClientError;
       setErrors($error.errors.body);
+    } finally {
+      setLoading(false);
     }
   };
 
