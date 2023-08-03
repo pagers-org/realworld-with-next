@@ -15,7 +15,7 @@ export const getPageInfo: GetPageInfo = ({ limit, pageCount, total, page }) => {
   const totalPages = Math.floor(total / limit);
   const currentPage = page > totalPages ? totalPages : page;
 
-  let firstPage = Math.max(0, currentPage - Math.floor(pageCount / 2));
+  let firstPage = Math.max(1, currentPage - Math.floor(pageCount / 2));
   let lastPage = Math.min(totalPages, currentPage + Math.floor(pageCount / 2));
 
   if (lastPage - firstPage + 1 < pageCount) {
@@ -36,7 +36,7 @@ export const getPageInfo: GetPageInfo = ({ limit, pageCount, total, page }) => {
 
   const previousPage = currentPage - 1;
   const nextPage = currentPage + 1;
-  const hasPreviousPage = currentPage > 0;
+  const hasPreviousPage = currentPage > 1;
   const hasNextPage = currentPage < totalPages;
 
   return {

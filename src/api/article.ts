@@ -22,7 +22,7 @@ export const usePartialArticles = ({
   token,
   ...param
 }: UsePartialArticlesParams) => {
-  const page = param.page * 페이지_컨텐츠_개수;
+  const page = (param.page - 1) * 페이지_컨텐츠_개수;
 
   let fetchURL = `?offset=${page}`;
   if (tag) fetchURL = `?tag=${tag}&offset=${page}`;

@@ -15,7 +15,7 @@ type ArticleListProps = {
 
 const ArticleList = (props: ArticleListProps) => {
   const { push, query } = useAppRouter();
-  const page = Number(query.page ?? 0);
+  const page = Number(query.page ?? 1);
   const { token } = useUser();
   const { data, error } = usePartialArticles({ page, token, ...props });
   const { vw } = useViewport();
