@@ -6,13 +6,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { user } = req.body;
 
   try {
-    setCookie(리얼_월드_키, user, {
+    setCookie(리얼_월드_키, JSON.stringify(user), {
       req,
       res,
       maxAge: 하루,
-      path: '/',
-      httpOnly: true,
-      secure: true,
     });
     return res.status(200).json({ message: 'Save the Token' });
   } catch (error) {
