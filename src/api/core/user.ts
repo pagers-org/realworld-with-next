@@ -1,4 +1,5 @@
-import { 리얼_월드_도메인 } from '@/constants';
+import { getCookie } from 'cookies-next';
+import { 리얼_월드_도메인, 리얼_월드_키 } from '@/constants';
 import { authCall, rwClient } from './config';
 import type { UserAPITypes } from 'types-api/user';
 
@@ -17,13 +18,13 @@ const UserAPI: UserAPITypes = {
   save: ({ user }, token) => rwClient.put(`/user`, JSON.stringify({ user }), authCall(token)),
 
   follow: ({ username }) => {
-    const user = JSON.parse(window.localStorage.getItem('user') || '{}');
+    const user = JSON.parse((getCookie(리얼_월드_키) as string) || '{}');
     const token = user?.token;
     return rwClient.post(`/profiles/${username}/follow`, undefined, authCall(token));
   },
 
   unfollow: ({ username }) => {
-    const user = JSON.parse(window.localStorage.getItem('user') || '{}');
+    const user = JSON.parse((getCookie(리얼_월드_키) as string) || '{}');
     const token = user?.token;
     return rwClient.delete(`/profiles/${username}/follow`, authCall(token));
   },

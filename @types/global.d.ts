@@ -23,6 +23,5 @@ declare module 'types-store' {
   type GlobalStoreInterface = {
     user: User;
     setUser: (newUser: User) => void;
-    reset: () => void;
   };
 }
