@@ -13,7 +13,7 @@ type ArticlePreviewProps = {
 };
 
 const ArticlePreview = ({ article }: ArticlePreviewProps) => {
-  const { push } = useAppRouter();
+  const { push, sendMessage } = useAppRouter();
   const { token } = useUser();
   const { mutate: favoriteArticle } = useFavoriteArticle(token);
   const { mutate: unFavoriteArticle } = useUnFavoriteArticle(token);
@@ -37,6 +37,17 @@ const ArticlePreview = ({ article }: ArticlePreviewProps) => {
     try {
       const callAPI = preview.favorited ? unFavoriteArticle : favoriteArticle;
       callAPI({ slug });
+      if (!preview.favorited) {
+        // to에 들어가는 ExpoPushToken을 DB에 저장하고 활용하세요.
+        sendMessage({
+          to: process.env.NEXT_PUBLIC_EXPO_PUSH_TOKEN!,
+          title: 'RealWorld 알림',
+          body: '작성하신 글에 누군가 좋아요를 보냈습니다.',
+          data: {
+            userName: 'MOCK_USER',
+          },
+        });
+      }
     } catch (error) {
       setPreview((prev) => ({
         ...prev,

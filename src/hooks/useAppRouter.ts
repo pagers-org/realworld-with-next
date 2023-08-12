@@ -70,11 +70,28 @@ const useAppRouter = () => {
   const back = async (): Promise<void> =>
     isWebView ? sendRouterEvent({ type: 'ROUTER_BACK' }) : router.back();
 
+  const sendMessage = async ({
+    to,
+    title,
+    body,
+    data,
+  }: {
+    to: string;
+    title: string;
+    body: string;
+    data: Record<string, unknown>;
+  }): Promise<void> => {
+    if (!isWebView) return;
+
+    sendRouterEvent({ type: 'PUSH_NOTIFICATION', to, title, body, data });
+  };
+
   return {
     push,
     replace,
     reload,
     back,
+    sendMessage,
     asPath: router.asPath,
     events: router.events,
     pathname: router.pathname,
